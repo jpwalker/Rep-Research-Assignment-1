@@ -1,0 +1,119 @@
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    fig_caption: yes
+    keep_md: yes
+    number_sections: yes
+---
+
+#Introduction
+## File Structure of Commit
+* activity.zip - Zipped dataset.
+* Assignment1.md - Produced markdown file.
+* Assignment1.Rmd - This R markdown file.
+* Assignment1_files - Directory were all figures that are produced are stored.
+* README.md - Included readme file for assignment.
+* src - Directory containing all the code used for the analysis.
+
+## Loading and preprocessing the data
+The code for unzipping, loading and preprocessing is found in src/IO.R.
+
+Code in src/IO.R:
+```{r echo=FALSE}
+src <- file('src/IO.R', 'rt')
+print(readLines(src, warn=FALSE))
+close(src)
+```
+
+Loading data:
+```{r}
+source('src/IO.R')
+```
+
+#Analysis Results
+## What is mean total number of steps taken per day?
+The code for this section is found in 
+src/daily_stats.R and src/hist_daily.R.
+
+Code in src/daily_stats.R:
+```{r echo=FALSE}
+src <- file('src/daily_stats.R', 'rt')
+print(readLines(src, warn=FALSE))
+close(src)
+```
+
+Code in src/hist_daily.R:
+```{r echo=FALSE}
+src <- file('src/hist_daily.R', 'rt')
+print(readLines(src, warn=FALSE))
+close(src)
+```
+
+Creating histogram and outputs mean/median for # of steps/day:
+```{r}
+source('src/hist_daily.R')
+```
+
+## What is the average daily activity pattern?
+The code for this section is found in 
+src/daily_stats.R and src/daily_pattern.R.
+
+Code in src/daily_stats.R:
+```{r echo=FALSE}
+src <- file('src/daily_stats.R', 'rt')
+print(readLines(src, warn=FALSE))
+close(src)
+```
+
+Code in src/daily_pattern.R:
+```{r echo=FALSE}
+src <- file('src/daily_pattern.R', 'rt')
+print(readLines(src, warn=FALSE))
+close(src)
+```
+
+Creating plot of the daily interval pattern and output the interval with maximum activity.:
+```{r}
+source('src/daily_pattern.R')
+```
+
+## Imputing missing values
+I chose to impute data as a function of interval. For any interval with an NA, I replaced the NA with the average number of steps from the previous plot. Because of this I reuse one function from src/daily_stats.R.
+
+Code for imputing data:
+```{r echo=FALSE}
+src <- file('src/imputing_data.R', 'rt')
+print(readLines(src, warn=FALSE))
+close(src)
+```
+
+Imputing data:
+```{r}
+source('src/imputing_data.R')
+```
+
+Again I have reused the sum function from the first histogram above. The function can be found in src/daily_stats.R
+
+Creating histogram and outputs mean/median for # of steps/day:
+```{r}
+source('src/hist_daily_impute.R')
+```
+
+The mean and median for the number of steps taken each day has increased after imputing values. The mean increased significantly while the median increased by only a small amount. This makes sense since the NAs were producing more days with less activity than would have been normally measured.
+
+## Are there differences in activity patterns between weekdays and weekends?
+This code reused the interval averaging function from src/daily_stats.R to find the average activity throughout the day as a function of weekend and weekday. 
+
+Code for assigning weekdays:
+```{r echo=FALSE}
+src <- file('src/weekday_analysis.R', 'rt')
+print(readLines(src, warn=FALSE))
+close(src)
+```
+
+Assigning weekdays to imputed dataframe and plotting average activity profile for weekdays and weekends:
+```{r}
+source('src/weekday_analysis.R')
+```
+
